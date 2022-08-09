@@ -126,10 +126,7 @@
       }
 
       function updateDisplay() {
-        const list = document.getElementById("itemsTable");
-        while (list.hasChildNodes()) {
-          list.removeChild(list.firstChild);
-        }
+        clearTable();
 
         // Find a <table> element with id="itemsTable":
           var table = document.getElementById("itemsTable");
@@ -145,6 +142,13 @@
 
           // Add some text to the new cells:
           cell.innerHTML = item;
+        }
+      }
+
+      function clearTable() {
+        const list = document.getElementById("itemsTable");
+        while (list.hasChildNodes()) {
+          list.removeChild(list.firstChild);
         }
       }
 
