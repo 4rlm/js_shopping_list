@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      * {
+        box-sizing: border-box;
+        font-family: Arial;
+      }
+
+      h1 {
+        padding: 16px;
+        background-color: lightgray;
+        text-align: center;
+        border-radius: 5px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>JS Shopping List</h1>
+    <button onclick="addItems()">Add Items</button>
+    <button onclick="removeItems()">Remove Items</button>
+    <h3>Items in List:</h3>
+    <p id="demo">Output Here</p> 
+    
+    
+    <script>
+
+      // var itemArray = ["apple", "apple", "#@,", "&$%,", ",", "4567", ",,,,"]
+      var itemArray = [];
+      formatArray();
+      
+      function addItems() {
+        let response = prompt("Enter items separated by space.");
+        concatPromptToArray(response);
+        formatArray();
+      }
+
+      function removeItems() {
+        let response = prompt("Enter items separated by space.");
+        var arrayFromString = response.split(" ");
+
+        arrayFromString.map(item => {
+          itemIndex = itemArray.indexOf(item);
+          itemArray.splice(itemIndex, 1);
+        });
+
+        updateDisplay(itemArray);
+      }
+
+      function concatPromptToArray(string) {
+        var arrayFromString = string.split(" ");
+        itemArray.push(...arrayFromString)
+      }
+
+      function formatArray() {
+        removeNonAlpha();
+        removeDuplicates();
+        itemArray.sort();
+        updateDisplay(itemArray);
+      }
+
+      function removeNonAlpha() {
+        itemArray = itemArray.map(x=>x.replace(/[^a-zA-Z]/g,""));     
+        itemArray = itemArray.filter(n => n);
+      }
+
+      function removeDuplicates() {
+        itemArray = [...new Set(itemArray)];
+      }
+
+      function updateDisplay(content) {
+        document.getElementById("demo").innerHTML = content;
+      }
+
+    </script>
+  </body>
+
+</html>
