@@ -13,22 +13,78 @@
         text-align: center;
         border-radius: 5px;
       }
+
+      .btnStyle {
+        padding: 16px;
+        background-color: blue;
+        color: white;
+        border-radius: 5px;
+        font-size: 16px;
+        width: 45%;
+        float: left;
+        margin: 5px;
+        font-weight: bold;
+      }
+
+      .btnStyle:hover {
+        background-color: green;
+      }
+
+      .clearFix::after {
+        content: "";
+        clear: both;
+        display: table;
+      }
+
+      .itemsHeader {
+        background-color: lightgray;
+        text-align: center;
+        border-radius: 5px;
+        padding: 16px;
+      }
+
+      #itemsTable table, th, td {
+        border: 1px solid;
+      }
+
+      #itemsTable {
+        width: 100%;
+        border-collapse: collapse;
+        border: 1px solid;
+      }
+
+      #itemsTable th, td {
+        padding: 16px;
+      }
+
+      #itemsTable tr:hover {background-color: coral;}
+      #itemsTable tr:nth-child(even) {background-color: #f2f2f2;}
+
+      #itemsTable th {
+        background-color: #04AA6D;
+        color: white;
+      }
     </style>
   </head>
 
   <body>
     <h1>JS Shopping List</h1>
-    <button onclick="addItems()">Add Items</button>
-    <button onclick="removeItems()">Remove Items</button>
-    <h3>Items in List:</h3>
-    <p id="demo">Output Here</p> 
-    
+
+    <div class="clearFix">
+      <button class="btnStyle" onclick="addItems()">Add Items</button>
+      <button class="btnStyle" onclick="removeItems()">Remove Items</button>
+    </div>
+
+    <div class="itemsContainer">
+      <h3 class="itemsHeader">List Items</h3>
+      <table id="itemsTable">
+        <tr><th>Items</th></tr>
+      </table>
+    </div>
     
     <script>
-
-      // var itemArray = ["apple", "apple", "#@,", "&$%,", ",", "4567", ",,,,"]
-      var itemArray = [];
-      formatArray();
+      var itemArray = ["apple", "banana", "orange"];
+      updateDisplay(); //TESTING: Remove this later.
       
       function addItems() {
         let response = prompt("Enter items separated by space.");
@@ -45,7 +101,7 @@
           itemArray.splice(itemIndex, 1);
         });
 
-        updateDisplay(itemArray);
+        updateDisplay();
       }
 
       function concatPromptToArray(string) {
@@ -69,8 +125,22 @@
         itemArray = [...new Set(itemArray)];
       }
 
-      function updateDisplay(content) {
-        document.getElementById("demo").innerHTML = content;
+      function updateDisplay() {
+        // Find a <table> element with id="itemsTable":
+          var table = document.getElementById("itemsTable");
+
+        for (let index = 0; index < itemArray.length; index++) {
+          const item = itemArray[index];
+
+        // Create an empty <tr> element and add it to the 1st position of the table:
+          var row = table.insertRow();
+
+          // Insert new cells (<td> elements) at the 1st and 2nd position of the "new" <tr> element:
+          var cell = row.insertCell();
+
+          // Add some text to the new cells:
+          cell.innerHTML = item;
+        }
       }
 
     </script>
